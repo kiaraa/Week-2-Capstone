@@ -75,9 +75,11 @@ public class TaskListApp {
 	public static boolean handleMenu(int selection, TaskList taskList, Scanner scan) {
 		switch (selection) {
 			case 1:		taskList.listTasks();
+						System.out.println();
 						return true;
 			
 			case 2:		taskList.addTask(getNewTask(scan));
+						System.out.println();
 						return true;
 						
 			case 3:		int taskToDelete = getTaskToDelete(scan, taskList);
@@ -88,6 +90,7 @@ public class TaskListApp {
 						else {
 							System.out.println("Alright, I won't do that.");
 						}
+						System.out.println();
 						return true;
 						
 			case 4:		int completedTask = getTaskToComplete(scan, taskList);
@@ -98,6 +101,7 @@ public class TaskListApp {
 						else {
 							System.out.println("Alright, I won't do that.");
 						}
+						System.out.println();
 						return true;
 						
 			case 5:		taskList.listTasks();
@@ -106,7 +110,7 @@ public class TaskListApp {
 						scan.nextLine(); //garbage line
 						int fieldToEdit = showEditMenu(taskList, scan);
 						editTask(taskToEdit, fieldToEdit, scan);
-						System.out.println("Edit Succesful!");
+						System.out.println();
 						return true;
 						
 			case 6:		return false;
@@ -121,11 +125,13 @@ public class TaskListApp {
 			case 1:		System.out.println("Please enter the new name: ");
 						String newName = scan.nextLine();
 						taskToEdit.setTeamMember(newName);
+						System.out.println("Name edited successfully!");
 						break;
 			
 			case 2:		System.out.println("Please enter your new description: ");
 						String newDescr = scan.nextLine();
 						taskToEdit.setDescription(newDescr);
+						System.out.println("Description added successfully!");
 						break;
 						
 			case 3:		System.out.println("Please enter your new date (dd/mm/yyyy): ");
@@ -133,10 +139,11 @@ public class TaskListApp {
 						boolean validDate = validateDate(newDate);
 						while (validDate == false){
 							System.out.println("Invalid date. Please enter the date that the task is due(mm/dd/yyyy): ");
+							newDate = scan.nextLine();
 							validDate = validateDate(newDate);
-							scan.nextLine();
 						}
 						taskToEdit.setDate(newDate);
+						System.out.println("Date added succesfully!");
 						break;
 
 			default:	break;
