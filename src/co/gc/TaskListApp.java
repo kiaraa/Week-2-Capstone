@@ -36,8 +36,13 @@ public class TaskListApp {
 		System.out.println("Please enter a description of the task: ");
 		String description = scan.nextLine();
 		
-		System.out.println("Please enter the date that the task is due(mm/dd/yyyy): ");
-		String date = scan.nextLine();
+		boolean validDate = false;
+		String date = "";
+		while (validDate == false){
+			System.out.println("Please enter the date that the task is due(mm/dd/yyyy): ");
+			date = scan.nextLine();
+			validDate = validateDate(date);
+		}
 		Task newTask = new Task(memberName, description, date);
 		return newTask;
 	}
@@ -45,7 +50,7 @@ public class TaskListApp {
 	public static int getTaskToDelete(Scanner scan, TaskList list) {
 		list.listTasks();
 		System.out.println("Please enter the number of the task you would like to delete.");
-		int numToDelete = scan.nextInt();
+		int numToDelete = scan.nextInt() - 1;
 		scan.nextLine(); //garbage line
 		return numToDelete;
 	}
@@ -53,7 +58,7 @@ public class TaskListApp {
 	public static int getTaskToComplete(Scanner scan, TaskList list) {
 		System.out.println("Congratulations, keep up the good work! Which task did you complete?");
 		list.listTasks();
-		int numToComplete = scan.nextInt(); //THIS IS THE LINE YOU CHANGED
+		int numToComplete = scan.nextInt();
 		scan.nextLine();//garbage line
 		return numToComplete;
 	}
@@ -76,7 +81,16 @@ public class TaskListApp {
 						
 			case 5:		return false;
 			
-			default:	return false;
+			default:	System.out.println("Error: Invalid suggestion. Please select from the menu above.");
+						return true;
 		}
+	}
+	
+	public static boolean validateDate(String date) {
+		if (date.matches("\\d{2}\\/\\d{2}\\/\\d{4}")) {
+			return true;
+		}
+		System.out.println("Error: Please enter a date in the mm/dd/yyyy format.");
+		return false;
 	}
 }
