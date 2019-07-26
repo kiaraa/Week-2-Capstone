@@ -50,6 +50,14 @@ public class TaskListApp {
 		return numToDelete;
 	}
 	
+	public static int getTaskToComplete(Scanner scan, TaskList list) {
+		System.out.println("Congratulations, keep up the good work! Which task did you complete?");
+		list.listTasks();
+		int numToComplete = scan.nextInt(); //THIS IS THE LINE YOU CHANGED
+		scan.nextLine();//garbage line
+		return numToComplete;
+	}
+	
 	public static boolean handleMenu(int selection, TaskList taskList, Scanner scan) {
 		switch (selection) {
 			case 1:		taskList.listTasks();
@@ -60,6 +68,10 @@ public class TaskListApp {
 						
 			case 3:		int taskToDelete = getTaskToDelete(scan, taskList);
 						taskList.deleteTask(taskToDelete);
+						return true;
+						
+			case 4:		int completedTask = getTaskToComplete(scan, taskList);
+						taskList.getTask(completedTask).setIsComplete(true);
 						return true;
 						
 			case 5:		return false;
