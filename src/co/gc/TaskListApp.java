@@ -6,11 +6,16 @@ public class TaskListApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		boolean keepGoing = true;
 		
 		TaskList taskList = new TaskList();
-		System.out.println("Welcome to the task list. Please choose an option below.");
-		int input = showMenu(scan);
-		handleMenu(input, taskList, scan);
+		System.out.println("Welcome to the task list!");
+		while(keepGoing) {
+			System.out.println("Please choose an option from the menu below.");
+			int input = showMenu(scan);
+			keepGoing = handleMenu(input, taskList, scan);
+		}
+
 	}
 
 	public static int showMenu(Scanner scan) {
@@ -34,17 +39,20 @@ public class TaskListApp {
 		System.out.println("Please enter the date that the task is due(mm/dd/yyyy): ");
 		String date = scan.nextLine();
 		Task newTask = new Task(memberName, description, date);
-		System.out.println(newTask); // tester line
 		return newTask;
 	}
 	
-	public static void handleMenu(int selection, TaskList taskList, Scanner scan) {
+	public static boolean handleMenu(int selection, TaskList taskList, Scanner scan) {
 		switch (selection) {
 			case 1:		taskList.listTasks();
-						break;
+						return true;
 			
 			case 2:		taskList.addTask(getNewTask(scan));
-						break;
+						return true;
+						
+			case 5:		return false;
+			
+			default:	return false;
 		}
 	}
 }
