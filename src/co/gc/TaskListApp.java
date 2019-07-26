@@ -63,6 +63,14 @@ public class TaskListApp {
 		return numToComplete;
 	}
 	
+	public static boolean getUserConfirmation(Scanner scan) {
+		System.out.println("Are you sure? (y/n)");
+		if (scan.nextLine().equalsIgnoreCase("y")) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean handleMenu(int selection, TaskList taskList, Scanner scan) {
 		switch (selection) {
 			case 1:		taskList.listTasks();
@@ -72,11 +80,23 @@ public class TaskListApp {
 						return true;
 						
 			case 3:		int taskToDelete = getTaskToDelete(scan, taskList);
-						taskList.deleteTask(taskToDelete);
+						boolean userConfirmation = getUserConfirmation(scan);
+						if (userConfirmation) {
+							taskList.deleteTask(taskToDelete);
+						}
+						else {
+							System.out.println("Alright, I won't do that.");
+						}
 						return true;
 						
 			case 4:		int completedTask = getTaskToComplete(scan, taskList);
-						taskList.getTask(completedTask).setIsComplete(true);
+						boolean userConfirmationComplete = getUserConfirmation(scan);
+						if (userConfirmationComplete) {
+							taskList.getTask(completedTask).setIsComplete(true);
+						}
+						else {
+							System.out.println("Alright, I won't do that.");
+						}
 						return true;
 						
 			case 5:		return false;

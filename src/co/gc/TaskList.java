@@ -22,7 +22,6 @@ public class TaskList {
 	}
 	
 	public void deleteTask(int index) {
-		//int trueIndex = index - 1;
 		if (index < taskList.size()) {
 			taskList.remove(index);
 			System.out.println("Task succesfully deleted.");
