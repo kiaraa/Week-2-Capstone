@@ -42,12 +42,24 @@ public class TaskListApp {
 		return newTask;
 	}
 	
+	public static int getTaskToDelete(Scanner scan, TaskList list) {
+		list.listTasks();
+		System.out.println("Please enter the number of the task you would like to delete.");
+		int numToDelete = scan.nextInt();
+		scan.nextLine(); //garbage line
+		return numToDelete;
+	}
+	
 	public static boolean handleMenu(int selection, TaskList taskList, Scanner scan) {
 		switch (selection) {
 			case 1:		taskList.listTasks();
 						return true;
 			
 			case 2:		taskList.addTask(getNewTask(scan));
+						return true;
+						
+			case 3:		int taskToDelete = getTaskToDelete(scan, taskList);
+						taskList.deleteTask(taskToDelete);
 						return true;
 						
 			case 5:		return false;

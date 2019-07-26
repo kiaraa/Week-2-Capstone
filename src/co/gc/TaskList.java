@@ -23,8 +23,9 @@ public class TaskList {
 	
 	public void deleteTask(int index) {
 		int trueIndex = index - 1;
-		if (index > taskList.size()) {
+		if (index < taskList.size()) {
 			taskList.remove(trueIndex);
+			System.out.println("Task succesfully deleted.");
 		}
 		else {
 			System.out.println("Error: Index is out of range.");
@@ -32,8 +33,10 @@ public class TaskList {
 	}
 	
 	public void listTasks() {
+		int taskCount = 1;
 		for (Task task: taskList) {
-			System.out.println(task);
+			System.out.println(taskCount + ". " + task);
+			taskCount++;
 		}
 	}
 }
