@@ -23,7 +23,8 @@ public class TaskListApp {
 		System.out.println("2. Add task");
 		System.out.println("3. Delete task");
 		System.out.println("4. Mark task complete");
-		System.out.println("5. Quit");
+		System.out.println("5. Edit task");
+		System.out.println("6. Quit");
 		int input = scan.nextInt();
 		scan.nextLine(); //garbage line
 		return input;
@@ -99,18 +100,67 @@ public class TaskListApp {
 						}
 						return true;
 						
-			case 5:		return false;
+			case 5:		taskList.listTasks();
+						System.out.println("Please select the task that you would like to edit.");
+						Task taskToEdit = taskList.getTaskList().get(scan.nextInt() - 1);
+						scan.nextLine(); //garbage line
+						int fieldToEdit = showEditMenu(taskList, scan);
+						editTask(taskToEdit, fieldToEdit, scan);
+						System.out.println("Edit Succesful!");
+						return true;
+						
+			case 6:		return false;
 			
 			default:	System.out.println("Error: Invalid suggestion. Please select from the menu above.");
 						return true;
 		}
 	}
 	
+	private static void editTask(Task taskToEdit, int fieldToEdit, Scanner scan) {
+		switch(fieldToEdit) {
+			case 1:		System.out.println("Please enter the new name: ");
+						String newName = scan.nextLine();
+						taskToEdit.setTeamMember(newName);
+						break;
+			
+			case 2:		System.out.println("Please enter your new description: ");
+						String newDescr = scan.nextLine();
+						taskToEdit.setDescription(newDescr);
+						break;
+						
+			case 3:		System.out.println("Please enter your new date (dd/mm/yyyy): ");
+						String newDate = scan.nextLine();
+						boolean validDate = validateDate(newDate);
+						while (validDate == false){
+							System.out.println("Invalid date. Please enter the date that the task is due(mm/dd/yyyy): ");
+							validDate = validateDate(newDate);
+							scan.nextLine();
+						}
+						taskToEdit.setDate(newDate);
+						break;
+
+			default:	break;
+						
+		}
+		
+	}
+
 	public static boolean validateDate(String date) {
 		if (date.matches("\\d{2}\\/\\d{2}\\/\\d{4}")) {
 			return true;
 		}
 		System.out.println("Error: Please enter a date in the mm/dd/yyyy format.");
 		return false;
+	}
+	
+	public static int showEditMenu(TaskList list, Scanner scan) {
+		System.out.println("1. Name");
+		System.out.println("2. Description");
+		System.out.println("3. Due date");
+		System.out.println("4. Return to main menu");
+		System.out.println("Please select what part of this task you would like to edit: ");
+		int input = scan.nextInt();
+		scan.nextLine(); //garbage line
+		return input;
 	}
 }
