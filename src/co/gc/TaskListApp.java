@@ -1,5 +1,6 @@
 package co.gc;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TaskListApp {
@@ -25,9 +26,17 @@ public class TaskListApp {
 		System.out.println("4. Mark task complete");
 		System.out.println("5. Edit task");
 		System.out.println("6. Quit");
-		int input = scan.nextInt();
-		scan.nextLine(); //garbage line
-		return input;
+		try {
+			int input = scan.nextInt();
+			scan.nextLine(); //garbage line
+			return input;
+		}
+		catch (InputMismatchException e) {
+			System.out.println("Sorry, I didn't understand that.");
+			scan.nextLine();
+			return showMenu(scan);
+		}
+		
 	}
 	
 	public static Task getNewTask(Scanner scan) {
